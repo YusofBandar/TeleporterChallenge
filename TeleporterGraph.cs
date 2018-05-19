@@ -19,13 +19,62 @@ namespace Teleporters
             addLink(tele);
         }
 
+        public bool Teleportation(Point start, Point end)
+        {
+            Teleporter tele1 = null;
+            Teleporter tele2 = null;
+            foreach(Teleporter t in graph)
+            {
+                if(t.Position.distance(start) <= (radius * radius))
+                {
+                    tele1 = t;
+                    if(tele2 != null)
+                    {
+                        break;
+                    }
+                }
+
+                if(t.Position.distance(end) <= (radius * radius))
+                {
+                    tele2 = t;
+                    if(tele1 != null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if(tele1 != null && tele2 != null)
+            {
+                return false;
+            }
+
+            return checkLink(tele1, tele2);
+        }
+
+        private bool checkLink(Teleporter tele1, Teleporter tele2)
+        {
+            bool found = false;
+            foreach(Teleporter t in tele1.Links)
+            {
+                if (t.Compare(tele2))
+                {
+                    found = true;
+                    break;
+                }
+
+                found = checkLink(t, tele2);
+            }
+
+            return found;
+        }
         
 
         private void addLink(Teleporter tele)
         {
             foreach(Teleporter t in graph)
             {
-                if(t.Position.X != tele.Position.X && t.Position.Y != tele.Position.Y)
+                if(t.Compare(tele))
                 {
                     if(t.Position.distance(tele.Position) <= (radius * radius))
                     {
@@ -36,6 +85,8 @@ namespace Teleporters
                 
             }
         }
+
+        
 
         public void PrintGraph()
         {

@@ -17,10 +17,21 @@ namespace Teleporters
         }
 
         internal Point Position { get => position; set => position = value; }
+        internal LinkedList<Teleporter> Links { get => links; set => links = value; }
 
         public void addLink(Teleporter tele)
         {
             links.AddLast(tele);
+        }
+
+        public bool Compare(Teleporter tele)
+        {
+            if (Position.X != tele.Position.X && Position.Y != tele.Position.Y)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public string linkPrint()
