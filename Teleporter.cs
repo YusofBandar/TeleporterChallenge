@@ -7,20 +7,16 @@ namespace Teleporters
    
     class Teleporter
     {
-        private int[] position = new int[2];
+        
         private LinkedList<Teleporter> links = new LinkedList<Teleporter>();
+        Point position;
 
-        public Teleporter(int[] position)
+        public Teleporter(Point position)
         {
-            this.position[0] = position[0];
-            this.position[1] = position[1];
+            this.position = position;
         }
 
-        public Teleporter(int x, int y)
-        {
-            this.position[0] = x;
-            this.position[1] = y;
-        }
+        internal Point Position { get => position; set => position = value; }
 
         public void addLink(Teleporter tele)
         {
@@ -40,16 +36,9 @@ namespace Teleporters
             return sb.ToString();
         }
 
-
         public override string ToString()
         {
-            return (PositionX + "," + PositionY);
+            return (Position.ToString());
         }
-
-        public int[] Position { get => position; set => position = value; }
-        public int PositionX { get => position[0]; set => position[0] = value; }
-        public int PositionY { get => position[1]; set => position[1] = value; }
-
-
     }
 }

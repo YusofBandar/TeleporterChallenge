@@ -6,12 +6,12 @@ namespace Teleporters
     {
         static void Main(string[] args)
         {
-            TeleporterGraph test1 = new TeleporterGraph(2);
-            Teleporter _1 = new Teleporter(1, 1);
-            Teleporter _2 = new Teleporter(2, 2);
-            Teleporter _3 = new Teleporter(5, 5);
-            Teleporter _4 = new Teleporter(3, 3);
-            Teleporter _5 = new Teleporter(6, 7);
+            TeleporterGraph test1 = new TeleporterGraph(1);
+            Teleporter _1 = new Teleporter(new Point(1, 1));
+            Teleporter _2 = new Teleporter(new Point(2, 2));
+            Teleporter _3 = new Teleporter(new Point(5, 5));
+            Teleporter _4 = new Teleporter(new Point(3, 3));
+            Teleporter _5 = new Teleporter(new Point(6, 7));
 
             test1.addTeleporter(_1);
             test1.addTeleporter(_2);
