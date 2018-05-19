@@ -26,7 +26,7 @@ namespace Teleporters
 
         public bool Compare(Teleporter tele)
         {
-            if (Position.X != tele.Position.X && Position.Y != tele.Position.Y)
+            if (Position.X == tele.Position.X && Position.Y == tele.Position.Y)
             {
                 return true;
             }

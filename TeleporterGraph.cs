@@ -25,6 +25,7 @@ namespace Teleporters
             Teleporter tele2 = null;
             foreach(Teleporter t in graph)
             {
+                
                 if(t.Position.distance(start) <= (radius * radius))
                 {
                     tele1 = t;
@@ -44,26 +45,42 @@ namespace Teleporters
                 }
             }
 
-            if(tele1 != null && tele2 != null)
+            if(tele1 == null || tele2 == null)
             {
+                
                 return false;
             }
 
-            return checkLink(tele1, tele2);
+            LinkedList<Teleporter> seen = new LinkedList<Teleporter>();
+            return checkLink(tele1, tele2, seen);
         }
 
-        private bool checkLink(Teleporter tele1, Teleporter tele2)
+        private bool checkLink(Teleporter tele1, Teleporter tele2, LinkedList<Teleporter> seen)
         {
             bool found = false;
             foreach(Teleporter t in tele1.Links)
             {
                 if (t.Compare(tele2))
                 {
+                    
                     found = true;
                     break;
                 }
 
-                found = checkLink(t, tele2);
+                bool mem = false;
+                foreach(Teleporter t2 in seen)
+                {
+                    if (t.Compare(t2))
+                    {
+                        mem = true;
+                    }
+                }
+
+                if (!mem)
+                {
+                    seen.AddLast(t);
+                    found = checkLink(t, tele2,seen);
+                }
             }
 
             return found;
@@ -74,7 +91,7 @@ namespace Teleporters
         {
             foreach(Teleporter t in graph)
             {
-                if(t.Compare(tele))
+                if(!t.Compare(tele))
                 {
                     if(t.Position.distance(tele.Position) <= (radius * radius))
                     {
